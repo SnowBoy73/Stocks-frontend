@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {StockExchangeService} from './shared/stock-exchange.service';
-import {subscriptionLogsToBeFn} from 'rxjs/internal/testing/TestScheduler';
 import {Subject, Subscription} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
 
@@ -11,19 +10,29 @@ import {take, takeUntil} from 'rxjs/operators';
     styleUrls: ['./stock-exchange.component.scss']
 })
 export class StockExchangeComponent implements OnInit, OnDestroy {
-    stock = new FormControl('');
+    stockControl = new FormControl('');
+    stock = 'dd';
     stocks: string[] = [];
     unsubscriber$ = new Subject();
     constructor(private stockExchangeService: StockExchangeService) { }
 
     ngOnInit(): void {
-        this.stockExchangeService.listenForStocks()
+       this.stockExchangeService.listenForStocks()
             .pipe(
                 takeUntil(this.unsubscriber$)
             )
-            .subscribe(stock => {
-                console.log('helloooo');
-                this.stocks.push(stock);
+            .subscribe(stock2 => {
+                console.log('listen for stocks');
+                this.stocks.push(stock2);
+            });
+
+       this.stockExchangeService.getAllStocks()
+            .pipe(
+                take(1)
+            )
+            .subscribe(stocks => {
+                console.log('get all');
+                this.stocks = stocks;
             });
     }
 
@@ -34,21 +43,21 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     }
 
     increaseValue(): void {
-        console.log('up', this.stock.value);
+        console.log('up', this.stockControl.value);
     }
 
     decreaseValue(): void  {
-        console.log('down', this.stock.value);
+        console.log('down', this.stockControl.value);
     }
 
     updateStock(): void  {
-        console.log('update', this.stock.value);
-        this.stockExchangeService.updateStock(this.stock.value);
+        console.log('update', this.stockControl.value);
+        this.stockExchangeService.updateStock(this.stockControl.value);
     }
 
 
     deleteStock(): void {
-        console.log('delete', this.stock.value);
-        this.stockExchangeService.deleteStock(this.stock.value);
+        console.log('delete', this.stockControl.value);
+        this.stockExchangeService.deleteStock(this.stockControl.value);
     }
 }

@@ -2,7 +2,7 @@
 
 <label>
     Stock Value:
-    <input type="text" [formControl]="stock">
+    <input type="text" [formControl]="stockControl">
 </label>
 
 <button (click)="increaseValue()">up</button>
@@ -10,4 +10,10 @@
 <button (click)="updateStock()">update</button>
 <button (click)="deleteStock()">delete</button>
 
-<h3>stock= {{stock.value}}</h3>
+<h3>stock= {{stockControl.value}}</h3>
+
+
+
+        <li *ngFor="let stock of stocks">
+            {{stock}}
+        </li>

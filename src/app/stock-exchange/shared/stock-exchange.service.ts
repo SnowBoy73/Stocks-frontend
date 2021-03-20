@@ -19,6 +19,11 @@ export class StockExchangeService {
 
     listenForStocks(): Observable<string> {
         return this.socket
-            .fromEvent<string>('stocks');
+            .fromEvent<string>('stockValue'); // ??  gets the current stock value (of selected company)
+    }
+
+    getAllStocks(): Observable<string[]> {
+        return this.socket
+            .fromEvent<string[]>('allStocks');
     }
 }
