@@ -8,28 +8,33 @@ import {StocksService} from './shared/stocks.service';
   styleUrls: ['./stocks.component.scss']
 })
 export class StocksComponent implements OnInit {
-  value = new FormControl('');
+  stock = new FormControl('');
+  stocks: string[] = [];
   constructor(private stocksService: StocksService) { }
 
   ngOnInit(): void {
+    this.stocksService.listenForStocks()
+        .subscribe(stock => {
+          this.stocks.push(stock);
+            });
   }
 
   increaseValue(): void {
-    console.log(this.value.value);
+    console.log('up', this.stock.value);
   }
 
   decreaseValue(): void  {
-
+    console.log('down', this.stock.value);
   }
 
   updateStock(): void  {
-    console.log(this.value.value);
-    this.stocksService.updateStock(this.value.value);
+    console.log('update', this.stock.value);
+    this.stocksService.updateStock(this.stock.value);
   }
 
 
   deleteStock(): void {
-    console.log(this.value.value);
-    this.stocksService.deleteStock(this.value.value);
+    console.log('delete', this.stock.value);
+    this.stocksService.deleteStock(this.stock.value);
   }
 }
