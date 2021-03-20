@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: 'chats', loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule) },
-  { path: 'stocks', loadChildren: () => import('./stock-exchange/stock-exchange.module').then(m => m.StockExchangeModule) }
+  { path: 'stock-exchange', loadChildren: () => import('./stock-exchange/stock-exchange.module').then(m => m.StockExchangeModule) }
   ];
 
 @NgModule({

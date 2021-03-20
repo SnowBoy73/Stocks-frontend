@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {StockExchangeService} from './shared/stock-exchange.service';
-import {Subject, Subscription} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
 
 @Component({
@@ -12,34 +12,36 @@ import {take, takeUntil} from 'rxjs/operators';
 export class StockExchangeComponent implements OnInit, OnDestroy {
     stockControl = new FormControl('');
     stock = 'dd';
-    stocks: string[] = [];
-    unsubscriber$ = new Subject();
+    allStocks: string[] = [];
+    unsubscribe$ = new Subject();
     constructor(private stockExchangeService: StockExchangeService) { }
 
     ngOnInit(): void {
-       this.stockExchangeService.listenForStocks()
+         this.stockExchangeService.listenForStocks()
             .pipe(
-                takeUntil(this.unsubscriber$)
+                takeUntil(this.unsubscribe$)
             )
-            .subscribe(stock2 => {
+            .subscribe(newStockValue => {
                 console.log('listen for stocks');
-                this.stocks.push(stock2);
+                this.allStocks.push(newStockValue);
             });
 
-       this.stockExchangeService.getAllStocks()
+         this.stockExchangeService.getAllStocks()
             .pipe(
                 take(1)
             )
             .subscribe(stocks => {
                 console.log('get all');
-                this.stocks = stocks;
+                this.allStocks = stocks;
             });
+       this.stockExchangeService.connect();
     }
 
     ngOnDestroy(): void {
         console.log('Destroyed');
-        this.unsubscriber$.next();
-        this.unsubscriber$.complete();
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+        this.stockExchangeService.disconnect();
     }
 
     increaseValue(): void {

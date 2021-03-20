@@ -26,4 +26,13 @@ export class StockExchangeService {
         return this.socket
             .fromEvent<string[]>('allStocks');
     }
+
+    connect(): void {
+        this.socket.connect();
+    }
+
+    disconnect(): void {
+        this.socket.disconnect();
+    }
+
 }
