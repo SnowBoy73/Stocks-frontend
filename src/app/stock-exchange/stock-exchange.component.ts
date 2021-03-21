@@ -3,6 +3,7 @@ import {FormControl} from '@angular/forms';
 import {StockExchangeService} from './shared/stock-exchange.service';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
+import {Stock} from './shared/stock.model';
 
 @Component({
     selector: 'app-stocks',
@@ -10,9 +11,9 @@ import {take, takeUntil} from 'rxjs/operators';
     styleUrls: ['./stock-exchange.component.scss']
 })
 export class StockExchangeComponent implements OnInit, OnDestroy {
-    stockControl = new FormControl('');
-    stock = 'dd';
-    allStocks: string[] = [];
+    stockFC = new FormControl('');
+    stock: Stock;
+    allStocks: Stock[] = [];
     unsubscribe$ = new Subject();
     constructor(private stockExchangeService: StockExchangeService) { }
 
@@ -34,7 +35,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 console.log('get all');
                 this.allStocks = stocks;
             });
-       this.stockExchangeService.connect();
+         this.stockExchangeService.connect();
     }
 
     ngOnDestroy(): void {
@@ -45,21 +46,21 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     }
 
     increaseValue(): void {
-        console.log('up', this.stockControl.value);
+        console.log('up', this.stockFC.value);
     }
 
     decreaseValue(): void  {
-        console.log('down', this.stockControl.value);
+        console.log('down', this.stockFC.value);
     }
 
     updateStock(): void  {
-        console.log('update', this.stockControl.value);
-        this.stockExchangeService.updateStock(this.stockControl.value);
+        console.log('update', this.stockFC.value);
+        this.stockExchangeService.updateStock(this.stockFC.value);
     }
 
 
     deleteStock(): void {
-        console.log('delete', this.stockControl.value);
-        this.stockExchangeService.deleteStock(this.stockControl.value);
+        console.log('delete', this.stockFC.value);
+        this.stockExchangeService.deleteStock(this.stockFC.value);
     }
 }

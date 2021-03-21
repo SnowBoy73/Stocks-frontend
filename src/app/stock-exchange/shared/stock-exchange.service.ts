@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs';
+import {Stock} from './stock.model';
 
 @Injectable({
     providedIn: 'root'
@@ -9,22 +10,22 @@ export class StockExchangeService {
 
     constructor(private socket: Socket) { }
 
-    updateStock(updatedStock: string): void {
+    updateStock(updatedStock: string): void { // NEEDS STOCK.ID
         this.socket.emit('update', updatedStock);
     }
 
-    deleteStock(deletedStock: string): void  {
+    deleteStock(deletedStock: string): void  { // NEEDS STOCK.ID
         this.socket.emit('delete', deletedStock);
     }
 
-    listenForStocks(): Observable<string> {
+    listenForStocks(): Observable<Stock> {
         return this.socket
-            .fromEvent<string>('stockValue'); // ??  gets the current stock value (of selected company)
+            .fromEvent<Stock>('stockValue'); // ??  gets the current stock value (of selected company)
     }
 
-    getAllStocks(): Observable<string[]> {
+    getAllStocks(): Observable<Stock[]> {
         return this.socket
-            .fromEvent<string[]>('allStocks');
+            .fromEvent<Stock[]>('allStocks');
     }
 
     connect(): void {

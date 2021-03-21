@@ -2,7 +2,7 @@
 
 <label>
     Stock Value:
-    <input type="text" [formControl]="stockControl">
+    <input type="text" [formControl]="stockFC">
 </label>
 
 <button (click)="increaseValue()">up</button>
@@ -10,10 +10,10 @@
 <button (click)="updateStock()">update</button>
 <button (click)="deleteStock()">delete</button>
 
-<h3>stock= {{stockControl.value}}</h3>
+<h3>stock= {{stockFC.value}}</h3>
 
 
 
         <li *ngFor="let stock of allStocks">
-            {{stock}}
+            {{stock.name}} = {{stock.currentPrice}}
         </li>
