@@ -35,14 +35,14 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 console.log('get all');
                 this.allStocks = stocks;
             });
-         this.stockExchangeService.connect();
+         //this.stockExchangeService.connect();
     }
 
     ngOnDestroy(): void {
         console.log('Destroyed');
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
-        this.stockExchangeService.disconnect();
+        //this.stockExchangeService.disconnect();
     }
 
     increaseValue(): void {
@@ -55,12 +55,12 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
     updateStock(): void  {
         console.log('update', this.stockFC.value);
-        this.stockExchangeService.updateStock(this.stockFC.value);
+        this.stockExchangeService.updateStock('5', this.stockFC.value);
     }
 
 
     deleteStock(): void {
         console.log('delete', this.stockFC.value);
-        this.stockExchangeService.deleteStock(this.stockFC.value);
+        this.stockExchangeService.deleteStock('5', this.stockFC.value);
     }
 }

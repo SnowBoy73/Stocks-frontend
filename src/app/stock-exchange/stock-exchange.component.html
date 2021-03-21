@@ -5,8 +5,8 @@
     <input type="text" [formControl]="stockFC">
 </label>
 
-<button (click)="increaseValue()">up</button>
-<button (click)="decreaseValue()">down</button>
+<button (click)="increaseValue()"mat-raised-button color="primary">up</button>
+<button (click)="decreaseValue()"mat-raised-button color="primary">down</button>
 <button (click)="updateStock()">update</button>
 <button (click)="deleteStock()">delete</button>
 

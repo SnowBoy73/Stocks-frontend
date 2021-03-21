@@ -10,11 +10,12 @@ export class StockExchangeService {
 
     constructor(private socket: Socket) { }
 
-    updateStock(updatedStock: string): void { // NEEDS STOCK.ID
-        this.socket.emit('update', updatedStock);
+    updateStock(stockId: string, updatedStock: string): void { // NEW
+        console.log('Front = ', stockId, updatedStock);
+        this.socket.emit('update', stockId, updatedStock);
     }
 
-    deleteStock(deletedStock: string): void  { // NEEDS STOCK.ID
+    deleteStock(stockId: string, deletedStock: string): void  { // NEW
         this.socket.emit('delete', deletedStock);
     }
 
