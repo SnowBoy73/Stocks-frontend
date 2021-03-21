@@ -5,6 +5,7 @@ import { StockExchangeRoutingModule } from './stock-exchange-routing.module';
 import {StockExchangeComponent} from './stock-exchange.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {MatButtonModule} from '@angular/material/button';
         CommonModule,
         StockExchangeRoutingModule,
         ReactiveFormsModule,
-        MatButtonModule
+        MatButtonModule,
+        SharedModule
     ]
 })
 export class StockExchangeModule { }
