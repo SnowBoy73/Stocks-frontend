@@ -1,5 +1,11 @@
 <div fxLayout="column" fxFlex fxLayoutAlign="center center">
 
+    <mat-card class="stock-info">
+        <mat-card-header>
+        <mat-card-title>Selected Stock</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
 <label>
     Stock Value:
     <input type="text" [formControl]="stockFC">
@@ -11,10 +17,13 @@
 <button (click)="deleteStock()">delete</button>
 
 <h3>stock= {{stockFC.value}}</h3>
+     <li *ngFor="let stock of allStocks">
+        {{stock.name}} = {{stock.currentPrice}}
+    </li>
+
+    </mat-card-content>
+
+    </mat-card>
 
 
-
-        <li *ngFor="let stock of allStocks">
-            {{stock.name}} = {{stock.currentPrice}}
-        </li>
 </div>
