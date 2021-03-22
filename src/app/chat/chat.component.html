@@ -1,60 +1,60 @@
 <div *ngIf="!socketId" style="color: darkred">
-    .  You are not connected
+  .  You are not connected
 </div>
 <div class="row vh-100" *ngIf="chatClient" style="padding-top: 30px">
 
 
 
-    <div class="col-3">
-        <div class="card h-100">
-            <div class="card-header">
-                <h2 class="darkslategreyText">
-                    <span style="">Online Users</span>
-                </h2>
-            </div>
-            <div class="card-body">
-                <div *ngIf="clients$ | async as clients">
-                    <ul class="clientList">
-                        <li *ngFor="let client of clients">
-                            {{client.nickname}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
+  <div class="col-3">
+    <div class="card h-100">
+      <div class="card-header">
+        <h2 class="darkslategreyText">
+          <span style="">Online Users</span>
+        </h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="clients$ | async as clients">
+          <ul class="clientList">
+            <li *ngFor="let client of clients">
+              {{client.nickname}}
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
-    <div class="col-9">
-        <div class="card h-100">
-            <div class="card-header">
-                <h5 style="font-size:24px">Start chatting {{chatClient.nickname}}n {{socketId}}</h5>
+  </div>
+  <div class="col-9">
+    <div class="card h-100">
+      <div class="card-header">
+        <h5 style="font-size:24px">Start chatting {{chatClient.nickname}}n {{socketId}}</h5>
+      </div>
+      <div class="card-body">
+        <h4 class="messageList" *ngFor="let message of messages">
+          <span class="sentAtText">{{message.sentAt.substring(message.sentAt.length-8,message.sentAt.length)}}</span>
+          <span style="font-size:14px;color: lightgreen;font-family:sans-serif">   {{message.sender?.nickname}}: </span>
+          <span class="messageText">{{message.message}}</span>
+        </h4>
+      </div>
+      <div class="card-footer">
+        <label>
+          Message:
+          <input type="text" [formControl]="messageFc">
+        </label>
+        <button (click)="sendMessage()">Send Message</button>
+        <h4 class="isTyping"
+            *ngFor="let clientTyping of clientsTyping">
+          <div *ngIf="clientTyping.id !== chatClient.id">
+            <div *ngIf="clientTyping.nickname">
+              <span style="font-size:14px;color: forestgreen">..</span>
+              {{clientTyping.nickname}} is typing...
             </div>
-            <div class="card-body">
-                <h4 class="messageList" *ngFor="let message of messages">
-                    <span class="sentAtText">{{message.sentAt.substring(message.sentAt.length-8,message.sentAt.length)}}</span>
-                    <span style="font-size:14px;color: lightgreen;font-family:sans-serif">   {{message.sender?.nickname}}: </span>
-                    <span class="messageText">{{message.message}}</span>
-                </h4>
-            </div>
-            <div class="card-footer">
-                <label>
-                    Message:
-                    <input type="text" [formControl]="messageFc">
-                </label>
-                <button (click)="sendMessage()">Send Message</button>
-                <h4 class="isTyping"
-                    *ngFor="let clientTyping of clientsTyping">
-                    <div *ngIf="clientTyping.id !== chatClient.id">
-                        <div *ngIf="clientTyping.nickname">
-                            <span style="font-size:14px;color: forestgreen">..</span>
-                            {{clientTyping.nickname}} is typing...
-                        </div>
-                    </div>
-                </h4>
+          </div>
+        </h4>
 
 
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 
@@ -62,26 +62,25 @@
 
 
 <div *ngIf="!chatClient">
-    <h2 class="yellowText">
-        <span style="font-size:14px;color: forestgreen">..</span>
-        Welcome to SuperChat
-    </h2>
-    <p class="lightText">
-        <label>
-            <span style="font-size:14px;color: forestgreen">..</span>
-            Enter Nickname:>
-            <input type="text" [formControl]="nicknameFc">
-        </label>
-        <button (click)="sendNickname()">Send</button>
-    </p>
-    <div *ngIf="error$ | async as error" style="color: orange">
-        <h4>
-            <span style="font-size:14px;color: forestgreen">..</span>
-            Login Error - Nickname already in use
-        </h4>
-    </div>
+  <h2 class="yellowText">
+    <span style="font-size:14px;color: forestgreen">..</span>
+    Welcome to SuperChat
+  </h2>
+  <p class="lightText">
+    <label>
+      <span style="font-size:14px;color: forestgreen">..</span>
+      Enter Nickname:>
+      <input type="text" [formControl]="nicknameFc">
+    </label>
+    <button (click)="sendNickname()">Send</button>
+  </p>
+  <div *ngIf="error$ | async as error" style="color: orange">
+    <h4>
+      <span style="font-size:14px;color: forestgreen">..</span>
+      Login Error - Nickname already in use
+    </h4>
+  </div>
 </div>
-
 
 
 
