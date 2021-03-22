@@ -10,11 +10,10 @@
             <mat-label>Get stock value</mat-label>
             <input matInput type="text" [formControl]="stockFC">
         </mat-form-field>
-
-            <button (click)="increaseValue()"mat-raised-button color="primary">up</button>
-            <button (click)="decreaseValue()"mat-raised-button color="primary">down</button>
-            <button (click)="updateStock()">update</button>
-            <button (click)="deleteStock()">delete</button>
+        <button (click)="increaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_up</button>
+        <button (click)="decreaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_down</button>
+        <button (click)="updateStock()">update</button>
+        <button (click)="deleteStock()">delete</button>
 
 
 <h3>Stocks: {{stockFC.value}}</h3>
