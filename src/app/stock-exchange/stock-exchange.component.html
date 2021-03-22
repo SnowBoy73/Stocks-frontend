@@ -6,11 +6,14 @@
         </mat-card-header>
         <mat-card-content>
 
-            <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+            <div fxLayout="row" fxFlexFill>
 
-                <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+                <mat-card fxFlex="30">
+                    <mat-card-header fxLayoutAlign="center top">
+                        <mat-card-title>Stocks</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
 
-                    <div fxLayout="row" fxFlex fxLayoutAlign="center center">
                         <div fxLayout="column" fxFlex fxLayoutAlign="top left">
                             <h3>Stocks: {{stockFC.value}}</h3>
                             <li *ngFor="let stock of allStocks">
@@ -18,24 +21,42 @@
                             </li>
                         </div>
 
-                        <mat-form-field class="example-form-field">
-                            <mat-label>Stock value (NZD)</mat-label>
-                            <input matInput type="text" [formControl]="stockFC">
-                        </mat-form-field>
+                    </mat-card-content>
+
+                </mat-card>
+
+                <mat-card fxFlex="70">
+                    <mat-card-header fxLayoutAlign="center top">
+                        <mat-card-title>Selected Stock</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
 
                         <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-                            <button (click)="increaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_up</button>
-                            <button (click)="decreaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_down</button>
+
+                            <h1>Company Name</h1>
+                            <h4>This is where all of the description information will go once the company has been selected.</h4>
+
+                            <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+                                <mat-form-field class="example-form-field">
+                                    <mat-label>Stock value (NZD)</mat-label>
+                                    <input matInput type="text" [formControl]="stockFC">
+                                </mat-form-field>
+
+                                <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+                                    <button (click)="increaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_up</button>
+                                    <button (click)="decreaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_down</button>
+                                </div>
+
+                            </div>
+
+                            <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+                                <button (click)="updateStock()">update</button>
+                                <button (click)="deleteStock()">delete</button>
+                            </div>
                         </div>
 
-                    </div>
-
-                    <div fxLayout="row" fxFlex fxLayoutAlign="center center">
-                        <button (click)="updateStock()">update</button>
-                        <button (click)="deleteStock()">delete</button>
-                    </div>
-
-                </div>
+                    </mat-card-content>
+                </mat-card>
 
             </div>
 
