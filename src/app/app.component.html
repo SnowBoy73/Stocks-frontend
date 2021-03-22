@@ -1,11 +1,18 @@
-  <div style="background-color:darksalmon;">
-    <div class="container">
-      <div class="row navbar-style">
-        <a routerLink="/">Home</a> ----
-        <a routerLink="/chats">Go To Chats</a> ----
-        <a routerLink="/stock-exchange">Go To Stock-Exchange</a>
-        <router-outlet></router-outlet>
-        <h3 class="footer">.</h3>
+  <div fxLayout="column" fxFill>
+    <div fxLayout="row" fxLayoutGap="10px">
+        <div class="row navbar-style">
+            <a routerLink="/">Home</a> ----
+            <a routerLink="/chats">Go To Chats</a> ----
+            <a routerLink="/stock-exchange">Go To Stock-Exchange</a>
+        </div>
+
+
+        <div style="background-color:darksalmon;">
+        <div class="container">
+
+            <router-outlet></router-outlet>
+            <h3 class="footer">.</h3>
+          </div>
       </div>
     </div>
   </div>
