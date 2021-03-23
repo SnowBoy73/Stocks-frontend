@@ -1,6 +1,6 @@
 <div fxLayout="row" fxFlex fxLayoutAlign="center center">
 
-    <mat-card fxFlex="50">
+    <mat-card fxFlex="60">
         <mat-card-header fxLayoutAlign="center top">
             <mat-card-title>Exchange Stocks</mat-card-title>
         </mat-card-header>
@@ -23,16 +23,12 @@
 
 
                                 #stocks [(ngModel)]="stockSelected" (ngModelChange)="onNgModelChange($event)" [multiple]="false">
-                                <mat-list-option *ngFor="let stock of allStocks"  [selected]="stock.name"
-                                                 (click)="onNgModelChange(stocks)" [value]="stock.name">>
-                                    >
+                                <mat-list-option *ngFor="let stock of allStocks"
+                                                 (click)="onNgModelChange(stocks)" [value]="stock.name">
 
-                                    {{stock.name}}
-
+                                    {{stock.name}} = {{stock.currentPrice}}
 
                                 </mat-list-option>
-
-
                             </mat-selection-list>
 
                             <p> Options selected: {{stocks.selectedOptions.selected.length}}</p>

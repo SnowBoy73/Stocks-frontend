@@ -17,7 +17,6 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     unsubscribe$ = new Subject();
 
     stockSelected = ''; // NEW
-    private selectedOptions: any;
 
 
 
@@ -80,7 +79,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     onNgModelChange($event: any): void {
         console.log('onNgModelChange');
         console.log(this.stockSelected);
-
+         
 
     }
 /*
