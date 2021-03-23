@@ -53,18 +53,18 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
     increaseValue(): void {
         console.log('up', this.stockFC.value);
-        if (this.updatedStock) {
-            this.updatedStock.currentPrice += 1;
-            console.log(this.updatedStock.name, this.updatedStock.description);
-        } else {
-            console.log('error - no stock selected to increase value of');
-        }
+        this.changeStockValue(1);
     }
 
     decreaseValue(): void  {
         console.log('down', this.stockFC.value);
+        this.changeStockValue(-1);
+    }
+
+    changeStockValue(increment): void {
         if (this.updatedStock) {
-            this.updatedStock.currentPrice -= 1;
+            this.updatedStock.currentPrice += increment;
+            this.stockFC.patchValue(this.updatedStock.currentPrice);
             console.log(this.updatedStock.name, this.updatedStock.description);
         } else {
             console.log('error - no stock selected to decrease value of');
@@ -73,13 +73,14 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
     updateStock(): void  {
         console.log('update', this.stockFC.value);
-        this.stockExchangeService.updateStock('5', this.stockFC.value);
+        this.stockExchangeService.updateStock(this.updatedStock.id, this.stockFC.value);
+        this.stockFC.patchValue(this.updatedStock.currentPrice);
     }
-
 
     deleteStock(): void {
         console.log('delete', this.stockFC.value);
         this.stockExchangeService.deleteStock('5', this.stockFC.value);
+        this.stockFC.patchValue(this.updatedStock.currentPrice);
     }
 
 
@@ -99,6 +100,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
         if (this.updatedStock)
         {
             console.log(this.updatedStock.name, this.updatedStock.description);
+            this.stockFC.patchValue(this.updatedStock.currentPrice);
         } else {
             console.log('error - no stock with that name found');
 
