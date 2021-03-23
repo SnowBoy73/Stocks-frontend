@@ -17,13 +17,14 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     unsubscribe$ = new Subject();
 
     stockSelected = ''; // NEW
-
+    updatedStock: Stock;
 
 
     constructor(private stockExchangeService: StockExchangeService) { }
 
     ngOnInit(): void {
-         this.stockExchangeService.listenForStocks()
+        this.updatedStock = null;
+        this.stockExchangeService.listenForStocks()
             .pipe(
                 takeUntil(this.unsubscribe$)
             )
@@ -32,7 +33,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 this.allStocks.push(newStockValue);
             });
 
-         this.stockExchangeService.getAllStocks()
+        this.stockExchangeService.getAllStocks()
             .pipe(
                 take(1)
             )
@@ -40,7 +41,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 console.log('get all');
                 this.allStocks = stocks;
             });
-         //this.stockExchangeService.connect();
+        //this.stockExchangeService.connect();
     }
 
     ngOnDestroy(): void {
@@ -79,7 +80,17 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     onNgModelChange($event: any): void {
         console.log('onNgModelChange');
         console.log(this.stockSelected);
-         
+        const stockName = this.stockSelected[0].toString();
+        console.log(stockName);
+
+        this.updatedStock = this.allStocks.find(us => us.name === stockName);
+        if (this.updatedStock)
+        {
+            console.log(this.updatedStock.name, this.updatedStock.description);
+        } else {
+            console.log('no found');
+
+        }
 
     }
 /*
