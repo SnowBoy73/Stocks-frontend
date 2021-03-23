@@ -12,7 +12,7 @@ import {Stock} from './shared/stock.model';
 })
 export class StockExchangeComponent implements OnInit, OnDestroy {
     stockFC = new FormControl('');
-    stock: Stock;
+    public stock: Stock;
     allStocks: Stock[] = [];
     unsubscribe$ = new Subject();
 
@@ -20,10 +20,20 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     updatedStock: Stock;
 
 
-    constructor(private stockExchangeService: StockExchangeService) { }
+    constructor(private stockExchangeService: StockExchangeService) {
+        this.updatedStock = {
+            id: '',
+            name: '',
+            description: '',
+            currentPrice: 0,
+            startPrice: 0,
+        };
+
+    }
 
     ngOnInit(): void {
-        this.updatedStock = null;
+
+
         this.stockExchangeService.listenForStocks()
             .pipe(
                 takeUntil(this.unsubscribe$)
@@ -52,13 +62,14 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     }
 
     increaseValue(): void {
-        console.log('up', this.stockFC.value);
         this.changeStockValue(1);
+        console.log('up', this.stockFC.value);
+
     }
 
     decreaseValue(): void  {
-        console.log('down', this.stockFC.value);
         this.changeStockValue(-1);
+        console.log('down', this.stockFC.value);
     }
 
     changeStockValue(increment): void {
@@ -67,14 +78,20 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
             this.stockFC.patchValue(this.updatedStock.currentPrice);
             console.log(this.updatedStock.name, this.updatedStock.description);
         } else {
-            console.log('error - no stock selected to decrease value of');
+            console.log('error - no stock selected to change value of');
         }
     }
 
     updateStock(): void  {
         console.log('update', this.stockFC.value);
+        console.log('allStocks comp-updateStock(1)=', this.allStocks.length);
+
         this.stockExchangeService.updateStock(this.updatedStock.id, this.stockFC.value);
+
         this.stockFC.patchValue(this.updatedStock.currentPrice);
+
+        console.log('allStocks comp-updateStock(2)=', this.allStocks.length);
+
     }
 
     deleteStock(): void {
@@ -94,7 +111,6 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
         console.log('onNgModelChange');
         console.log(this.stockSelected);
         const stockName = this.stockSelected[0].toString();
-        console.log(stockName);
 
         this.updatedStock = this.allStocks.find(us => us.name === stockName);
         if (this.updatedStock)

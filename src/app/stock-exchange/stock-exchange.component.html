@@ -18,6 +18,7 @@
 
                             <mat-selection-list
                                 #stocks [(ngModel)]="stockSelected" (ngModelChange)="onNgModelChange($event)" [multiple]="false">
+                                allStocks html = {{allStocks.length}}
                                 <mat-list-option *ngFor="let stock of allStocks"
                                                  (click)="onNgModelChange(stocks)" [value]="stock.name">
                                     {{stock.name}} = {{stock.currentPrice}}
@@ -37,8 +38,8 @@
 
                         <div fxLayout="column" fxFlex fxLayoutAlign="center center">
 
-                            <h1>Company Name</h1>
-                            <h4>This is where all of the description information will go once the company has been selected.</h4>
+                            <h1>{{updatedStock.name}}</h1>
+                            <h4>{{updatedStock.description}}</h4>
 
                             <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="20px">
 
