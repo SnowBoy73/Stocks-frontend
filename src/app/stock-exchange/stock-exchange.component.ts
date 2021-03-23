@@ -15,6 +15,11 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     stock: Stock;
     allStocks: Stock[] = [];
     unsubscribe$ = new Subject();
+
+    stockSelected = ''; // NEW
+
+
+
     constructor(private stockExchangeService: StockExchangeService) { }
 
     ngOnInit(): void {
@@ -63,4 +68,19 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
         console.log('delete', this.stockFC.value);
         this.stockExchangeService.deleteStock('5', this.stockFC.value);
     }
+
+
+
+    onSelection(e, v): any {
+        console.log(this.stockSelected = e.option.value);
+        this.stockSelected = e.option.value;
+    }
+
+    onNgModelChange($event: any): void {
+        console.log('onNgModelChange');
+        console.log(this.stockSelected);
+
+
+    }
+
 }

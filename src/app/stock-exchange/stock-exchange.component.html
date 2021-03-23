@@ -15,10 +15,32 @@
                     <mat-card-content>
 
                         <div fxLayout="column" fxFlex fxLayoutAlign="top left">
-                            <h3>Stocks: {{stockFC.value}}</h3>
-                            <li *ngFor="let stock of allStocks">
-                                {{stock.name}} = {{stock.currentPrice}}
-                            </li>
+
+
+
+
+                            <mat-selection-list
+
+
+                                #stocks [(ngModel)]="stockSelected" (ngModelChange)="onNgModelChange($event)" [multiple]="false">
+                                <mat-list-option *ngFor="let stock of allStocks" >
+
+                                    {{stock.name}}
+
+
+                                </mat-list-option>
+
+
+                            </mat-selection-list>
+
+                            <p> Options selected: {{stocks.selectedOptions.selected.length}}</p>
+
+
+
+
+
+
+
                         </div>
 
                     </mat-card-content>
