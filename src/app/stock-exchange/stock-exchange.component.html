@@ -2,7 +2,7 @@
 
     <mat-card fxFlex="50">
         <mat-card-header fxLayoutAlign="center top">
-            <mat-card-title>Selected Stock</mat-card-title>
+            <mat-card-title>Exchange Stocks</mat-card-title>
         </mat-card-header>
         <mat-card-content>
 
@@ -36,20 +36,20 @@
                             <h1>Company Name</h1>
                             <h4>This is where all of the description information will go once the company has been selected.</h4>
 
-                            <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+                            <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="20px">
                                 <mat-form-field class="example-form-field">
                                     <mat-label>Stock value (NZD)</mat-label>
                                     <input matInput type="text" [formControl]="stockFC">
                                 </mat-form-field>
 
-                                <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+                                <div fxLayout="column" fxFlex fxLayoutAlign="center center" fxLayoutGap="10px">
                                     <button (click)="increaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_up</button>
                                     <button (click)="decreaseValue()"class="mdc-icon-button material-icons">keyboard_arrow_down</button>
                                 </div>
 
                             </div>
 
-                            <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+                            <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="10px">
                                 <button (click)="updateStock()">update</button>
                                 <button (click)="deleteStock()">delete</button>
                             </div>
