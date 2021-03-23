@@ -17,6 +17,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     unsubscribe$ = new Subject();
 
     stockSelected = ''; // NEW
+    private selectedOptions: any;
 
 
 
@@ -82,5 +83,12 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
 
     }
+/*
+    onAreaListControlChanged(stocks: any): void {
+        this.stockSelected = stocks.stockSelected.selected.map(item => item.value);
+        console.log('onAreaListControlChanged');
+        console.log(this.stockSelected.valueOf());
+    }
 
+ */
 }

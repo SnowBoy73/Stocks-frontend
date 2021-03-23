@@ -23,7 +23,9 @@
 
 
                                 #stocks [(ngModel)]="stockSelected" (ngModelChange)="onNgModelChange($event)" [multiple]="false">
-                                <mat-list-option *ngFor="let stock of allStocks" >
+                                <mat-list-option *ngFor="let stock of allStocks"  [selected]="stock.name"
+                                                 (click)="onNgModelChange(stocks)" [value]="stock.name">>
+                                    >
 
                                     {{stock.name}}
 
