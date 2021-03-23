@@ -53,10 +53,22 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
     increaseValue(): void {
         console.log('up', this.stockFC.value);
+        if (this.updatedStock) {
+            this.updatedStock.currentPrice += 1;
+            console.log(this.updatedStock.name, this.updatedStock.description);
+        } else {
+            console.log('error - no stock selected to increase value of');
+        }
     }
 
     decreaseValue(): void  {
         console.log('down', this.stockFC.value);
+        if (this.updatedStock) {
+            this.updatedStock.currentPrice -= 1;
+            console.log(this.updatedStock.name, this.updatedStock.description);
+        } else {
+            console.log('error - no stock selected to decrease value of');
+        }
     }
 
     updateStock(): void  {
@@ -88,7 +100,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
         {
             console.log(this.updatedStock.name, this.updatedStock.description);
         } else {
-            console.log('no found');
+            console.log('error - no stock with that name found');
 
         }
 
