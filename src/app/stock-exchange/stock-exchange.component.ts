@@ -15,21 +15,11 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     public stock: Stock;
     allStocks: Stock[] = [];
     unsubscribe$ = new Subject();
-
     stockSelected = ''; // NEW
     updatedStock: Stock;
 
 
-    constructor(private stockExchangeService: StockExchangeService) {
-     /*   this.updatedStock = {
-            id: '',
-            name: '',
-            description: '',
-            currentPrice: 0,
-            startPrice: 0,
-        };
-*/
-    }
+    constructor(private stockExchangeService: StockExchangeService) {}
 
     ngOnInit(): void {
 
