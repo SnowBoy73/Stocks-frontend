@@ -21,14 +21,14 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
 
     constructor(private stockExchangeService: StockExchangeService) {
-        this.updatedStock = {
+     /*   this.updatedStock = {
             id: '',
             name: '',
             description: '',
             currentPrice: 0,
             startPrice: 0,
         };
-
+*/
     }
 
     ngOnInit(): void {
@@ -76,7 +76,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
         if (this.updatedStock) {
             this.updatedStock.currentPrice += increment;
             this.stockFC.patchValue(this.updatedStock.currentPrice);
-            console.log(this.updatedStock.name, this.updatedStock.description);
+            //console.log(this.updatedStock.name, this.updatedStock.description);
         } else {
             console.log('error - no stock selected to change value of');
         }
@@ -108,8 +108,8 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     }
 
     onNgModelChange($event: any): void {
-        console.log('onNgModelChange');
-        console.log(this.stockSelected);
+        //console.log('onNgModelChange');
+        //console.log(this.stockSelected);
         const stockName = this.stockSelected[0].toString();
 
         this.updatedStock = this.allStocks.find(us => us.name === stockName);
