@@ -33,9 +33,9 @@
                     <mat-card-header fxLayoutAlign="center top">
                         <mat-card-title>Selected Stock</mat-card-title>
                     </mat-card-header>
-                    <mat-card-content>
+                    <mat-card-content fxFlex fxLayoutAlign="center bottom">
 
-                        <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+                        <div fxLayout="column" fxFlexFill fxLayoutAlign="center bottom">
 
                             <h1>{{updatedStock?.name}}</h1>
                             <h4>{{updatedStock?.description}}</h4>
@@ -54,7 +54,7 @@
 
                             </div>
 
-                            <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="10px">
+                            <div fxLayout="row"  fxLayoutAlign="center top" fxLayoutGap="10px">
                                 <button (click)="updateStock()">update</button>
                                 <button (click)="deleteStock()">delete</button>
                             </div>
