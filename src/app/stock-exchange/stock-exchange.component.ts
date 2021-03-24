@@ -66,7 +66,6 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
         if (this.updatedStock) {
             this.updatedStock.currentPrice += increment;
             this.stockFC.patchValue(this.updatedStock.currentPrice);
-            //console.log(this.updatedStock.name, this.updatedStock.description);
         } else {
             console.log('error - no stock selected to change value of');
         }
@@ -74,14 +73,8 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
     updateStock(): void  {
         console.log('update', this.stockFC.value);
-        console.log('allStocks comp-updateStock(1)=', this.allStocks.length);
-
         this.stockExchangeService.updateStock(this.updatedStock.id, this.stockFC.value);
-
         this.stockFC.patchValue(this.updatedStock.currentPrice);
-
-        console.log('allStocks comp-updateStock(2)=', this.allStocks.length);
-
     }
 
     deleteStock(): void {
@@ -89,8 +82,6 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
         this.stockExchangeService.deleteStock('5', this.stockFC.value);
         this.stockFC.patchValue(this.updatedStock.currentPrice);
     }
-
-
 
     onSelection(e, v): any {
         console.log(this.stockSelected = e.option.value);

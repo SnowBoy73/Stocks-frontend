@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs';
 import {Stock} from './stock.model';
+import {StockUpdateDTO} from './stock-update.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +12,13 @@ export class StockExchangeService {
     constructor(private socket: Socket) { }
 
     updateStock(stockId: string, updatedStock: string): void { // NEW
-        console.log('Front = ', stockId, updatedStock);
-        this.socket.emit('update', stockId, updatedStock);
+        const stockUpdateDto: StockUpdateDTO = {
+            id: stockId,
+            updatedStockValue: updatedStock
+        };
+        console.log('DTO = ', stockUpdateDto.id, stockUpdateDto.updatedStockValue);
+
+        this.socket.emit('update', stockUpdateDto);
     }
 
     deleteStock(stockId: string, deletedStock: string): void  { // NEW
