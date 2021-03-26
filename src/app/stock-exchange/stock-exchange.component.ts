@@ -19,13 +19,14 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     stockSelected = ''; // NEW
     updatedStock: StockDTO;
 
+    allStocks$: Subscription;
 
     constructor(private stockExchangeService: StockExchangeService) {}
 
     ngOnInit(): void {
 
 
-        this.stockExchangeService.listenForStockUpdates()
+        this.allStocks$ = this.stockExchangeService.listenForStockUpdates()
             .pipe(
                 takeUntil(this.unsubscribe$)
             )
@@ -39,12 +40,10 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 take(1)
             )
             .subscribe(stocks => {
+                console.log('get all');
+                this.allStocks = stocks;
                 console.log('allStocks Front =', stocks);
 
-                console.log('get all');
-
-
-                this.allStocks = stocks;
             });
         //this.stockExchangeService.connect();
     }

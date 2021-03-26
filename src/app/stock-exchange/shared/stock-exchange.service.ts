@@ -27,13 +27,26 @@ export class StockExchangeService {
     }
 
     listenForStockUpdates(): Observable<StockDTO> {
-        return this.socket
+        console.log('STOCK UPDATE in service');
+
+        const ss = this.socket
             .fromEvent<StockDTO>('allStocks'); // ??  gets the current stock value (of selected company)
+        if (!ss) {
+            console.log('Ss = undefined');
+        } else {
+            console.log('Ss = DEFINED', ss);
+
+        }
+        return ss;
+
     }
 
     getAllStocks(): Observable<StockDTO[]> {
-        return this.socket
+        const stks =  this.socket
             .fromEvent<StockDTO[]>('allStocks');
+        console.log('stks = ', stks);
+
+        return stks;
     }
 
     connect(): void {
