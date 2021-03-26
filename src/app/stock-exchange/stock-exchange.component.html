@@ -17,7 +17,7 @@
 
                             <mat-selection-list fxFlex class="scrollList"
                                 #stocks [(ngModel)]="stockSelected" (ngModelChange)="onNgModelChange($event)" [multiple]="false">
-                                <mat-list-option *ngFor="let stock of allStocks"
+                                <mat-list-option *ngFor="let stock of allStocks as stockDTOS"
                                                  (click)="onNgModelChange(stocks)" [value]="stock.name">
                                     {{stock.name}} = {{stock.currentPrice}}
                                     <mat-divider></mat-divider>

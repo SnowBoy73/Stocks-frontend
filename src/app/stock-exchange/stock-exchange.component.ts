@@ -3,7 +3,8 @@ import {FormControl} from '@angular/forms';
 import {StockExchangeService} from './shared/stock-exchange.service';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
-import {Stock} from './shared/stock.model';
+//import {Stock} from './shared/stock.model';
+import {StockDTO} from './shared/stock.dto';
 
 @Component({
     selector: 'app-stocks',
@@ -12,11 +13,11 @@ import {Stock} from './shared/stock.model';
 })
 export class StockExchangeComponent implements OnInit, OnDestroy {
     stockFC = new FormControl('');
-    public stock: Stock;
-    allStocks: Stock[] = [];
+    public stock: StockDTO;
+    allStocks: StockDTO[] = [];
     unsubscribe$ = new Subject();
     stockSelected = ''; // NEW
-    updatedStock: Stock;
+    updatedStock: StockDTO;
 
 
     constructor(private stockExchangeService: StockExchangeService) {}
@@ -24,7 +25,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
 
 
-        this.stockExchangeService.listenForStocks()
+        this.stockExchangeService.listenForStockUpdates()
             .pipe(
                 takeUntil(this.unsubscribe$)
             )
@@ -38,7 +39,11 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 take(1)
             )
             .subscribe(stocks => {
+                console.log('allStocks Front =', stocks);
+
                 console.log('get all');
+
+
                 this.allStocks = stocks;
             });
         //this.stockExchangeService.connect();
