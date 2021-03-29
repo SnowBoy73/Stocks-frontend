@@ -12,13 +12,12 @@ export class StockExchangeService {
 
     constructor(private socket: Socket) { }
 
-    updateStock(stockId: string, updatedStock: string): void { // NEW
+    updateStock(stockId: string, updatedStock: string): any { // NEW
         const stockUpdateDto: StockUpdateDTO = {
             id: stockId,
             updatedStockValue: updatedStock
         };
         console.log('DTO = ', stockUpdateDto.id, stockUpdateDto.updatedStockValue);
-
         this.socket.emit('update', stockUpdateDto);
     }
 
@@ -28,24 +27,20 @@ export class StockExchangeService {
 
     listenForStockUpdates(): Observable<StockDTO> {
         console.log('STOCK UPDATE in service');
-
         const ss = this.socket
-            .fromEvent<StockDTO>('allStocks'); // ??  gets the current stock value (of selected company)
+            .fromEvent<StockDTO>('update'); // ??  gets the current stock value (of selected company)
         if (!ss) {
             console.log('Ss = undefined');
         } else {
             console.log('Ss = DEFINED', ss);
-
         }
         return ss;
-
     }
 
-    getAllStocks(): Observable<StockDTO[]> {
+    listenForNewStockValues(): Observable<StockDTO[]> {
         const stks =  this.socket
-            .fromEvent<StockDTO[]>('allStocks');
+            .fromEvent<StockDTO[]>('newStockValues');
         console.log('stks = ', stks);
-
         return stks;
     }
 

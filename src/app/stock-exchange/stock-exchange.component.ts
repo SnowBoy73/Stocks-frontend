@@ -26,16 +26,23 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
 
 
-        this.allStocks$ = this.stockExchangeService.listenForStockUpdates()
+       this.stockExchangeService.listenForStockUpdates()
             .pipe(
-                takeUntil(this.unsubscribe$)
+                take(1)
             )
             .subscribe(newStockValue => {
-                console.log('listen for stocks');
-                this.allStocks.push(newStockValue);
+                console.log('listen for stock updates');
+                this.stockExchangeService.listenForStockUpdates();
+                const us = newStockValue;
+                console.log('newStockValue = ', newStockValue);
+                // NEW 29-3
+                const index = this.allStocks.findIndex(s => s.name === newStockValue.name);
+                console.log('newStockValue location = ', index);
+                this.allStocks[index] = newStockValue;
+                //
             });
 
-        this.stockExchangeService.getAllStocks()
+       this.stockExchangeService.listenForNewStockValues()
             .pipe(
                 take(1)
             )
@@ -43,22 +50,18 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 console.log('get all');
                 this.allStocks = stocks;
                 console.log('allStocks Front =', stocks);
-
             });
-        //this.stockExchangeService.connect();
     }
 
     ngOnDestroy(): void {
         console.log('Destroyed');
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
-        //this.stockExchangeService.disconnect();
     }
 
     increaseValue(): void {
         this.changeStockValue(1);
         console.log('up', this.stockFC.value);
-
     }
 
     decreaseValue(): void  {
@@ -93,10 +96,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     }
 
     onNgModelChange($event: any): void {
-        //console.log('onNgModelChange');
-        //console.log(this.stockSelected);
         const stockName = this.stockSelected[0].toString();
-
         this.updatedStock = this.allStocks.find(us => us.name === stockName);
         if (this.updatedStock)
         {
@@ -104,16 +104,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
             this.stockFC.patchValue(this.updatedStock.currentPrice);
         } else {
             console.log('error - no stock with that name found');
-
         }
-
-    }
-/*
-    onAreaListControlChanged(stocks: any): void {
-        this.stockSelected = stocks.stockSelected.selected.map(item => item.value);
-        console.log('onAreaListControlChanged');
-        console.log(this.stockSelected.valueOf());
     }
 
- */
 }
