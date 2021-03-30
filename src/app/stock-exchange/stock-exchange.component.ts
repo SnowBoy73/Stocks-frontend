@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {StockExchangeService} from './shared/stock-exchange.service';
 import {Observable, Subject, Subscription} from 'rxjs';
@@ -21,28 +21,33 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
 
     allStocks$: Subscription;
 
-    constructor(private stockExchangeService: StockExchangeService) {}
+    constructor(private stockExchangeService: StockExchangeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit(): void {
 
-
-       this.stockExchangeService.listenForStockUpdates()
+        this.stockExchangeService.listenForStockUpdates()
             .pipe(
-                take(1)
+                takeUntil(this.unsubscribe$)
             )
             .subscribe(newStockValue => {
                 console.log('listen for stock updates');
                 this.stockExchangeService.listenForStockUpdates();
-                const us = newStockValue;
                 console.log('newStockValue = ', newStockValue);
                 // NEW 29-3
                 const index = this.allStocks.findIndex(s => s.name === newStockValue.name);
                 console.log('newStockValue location = ', index);
+
                 this.allStocks[index] = newStockValue;
+                console.log('newStockValue location 2');
+
+                this.cd.detectChanges();
+
+                console.log('newStockValue location 3');
+
                 //
             });
 
-       this.stockExchangeService.listenForNewStockValues()
+        this.stockExchangeService.listenForNewStockValues()
             .pipe(
                 take(1)
             )
@@ -96,15 +101,24 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     }
 
     onNgModelChange($event: any): void {
-        const stockName = this.stockSelected[0].toString();
-        this.updatedStock = this.allStocks.find(us => us.name === stockName);
-        if (this.updatedStock)
+
+        console.log(this.stockSelected.length);
+        if (this.stockSelected.length === 0)
         {
-            console.log(this.updatedStock.name, this.updatedStock.description);
-            this.stockFC.patchValue(this.updatedStock.currentPrice);
+
         } else {
-            console.log('error - no stock with that name found');
+
+
+            const stockName = this.stockSelected[0].toString();
+            this.updatedStock = this.allStocks.find(us => us.name === stockName);
+            if (this.updatedStock) {
+                console.log(this.updatedStock.name, this.updatedStock.description);
+                this.stockFC.patchValue(this.updatedStock.currentPrice);
+            } else {
+                console.log('error - no stock with that name found');
+            }
         }
     }
 
 }
+
