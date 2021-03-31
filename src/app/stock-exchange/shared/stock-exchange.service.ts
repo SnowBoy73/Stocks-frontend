@@ -26,7 +26,6 @@ export class StockExchangeService {
     }
 
     listenForStockUpdates(): Observable<StockDTO> {
-        console.log('STOCK UPDATE in service');
         const ss = this.socket
             .fromEvent<StockDTO>('update'); // ??  gets the current stock value (of selected company)
         if (!ss) {
@@ -40,7 +39,6 @@ export class StockExchangeService {
     listenForNewStockValues(): Observable<StockDTO[]> {
         const stks =  this.socket
             .fromEvent<StockDTO[]>('newStockValues');
-        console.log('stks = ', stks);
         return stks;
     }
 

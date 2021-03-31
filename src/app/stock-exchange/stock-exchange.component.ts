@@ -3,7 +3,7 @@ import {FormControl} from '@angular/forms';
 import {StockExchangeService} from './shared/stock-exchange.service';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
-//import {Stock} from './shared/stock.model';
+// import {Stock} from './shared/stock.model';
 import {StockDTO} from './shared/stock.dto';
 
 @Component({
@@ -32,19 +32,9 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
             .subscribe(newStockValue => {
                 console.log('listen for stock updates');
                 this.stockExchangeService.listenForStockUpdates();
-                console.log('newStockValue = ', newStockValue);
-                // NEW 29-3
                 const index = this.allStocks.findIndex(s => s.name === newStockValue.name);
-                console.log('newStockValue location = ', index);
-
                 this.allStocks[index] = newStockValue;
-                console.log('newStockValue location 2');
-
                 this.cd.detectChanges();
-
-                console.log('newStockValue location 3');
-
-                //
             });
 
         this.stockExchangeService.listenForNewStockValues()
@@ -52,9 +42,7 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
                 take(1)
             )
             .subscribe(stocks => {
-                console.log('get all');
                 this.allStocks = stocks;
-                console.log('allStocks Front =', stocks);
             });
     }
 
@@ -103,15 +91,11 @@ export class StockExchangeComponent implements OnInit, OnDestroy {
     onNgModelChange($event: any): void {
 
         console.log(this.stockSelected.length);
-        if (this.stockSelected.length === 0)
+        if (this.stockSelected.length !== 0)
         {
-
-        } else {
-
-
-            const stockName = this.stockSelected[0].toString();
-            this.updatedStock = this.allStocks.find(us => us.name === stockName);
-            if (this.updatedStock) {
+         const stockName = this.stockSelected[0].toString();
+         this.updatedStock = this.allStocks.find(us => us.name === stockName);
+         if (this.updatedStock) {
                 console.log(this.updatedStock.name, this.updatedStock.description);
                 this.stockFC.patchValue(this.updatedStock.currentPrice);
             } else {

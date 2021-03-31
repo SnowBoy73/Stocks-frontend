@@ -1,13 +1,17 @@
-<div fxLayout="column" fxFlex fxLayoutAlign="center center">
+<div fxLayout="column" fxFlex="60, 60" fxLayoutAlign="center center">
 
-    <mat-card fxFlex="75" fxLayout="column">
+    <mat-card fxFlexFill="60, 60" fxLayout="column">
         <mat-card-header fxFlex="10" fxLayoutAlign="center top">
             <mat-card-title>Exchange Stocks</mat-card-title>
         </mat-card-header>
-        <mat-card-content fxFlex="90">
-                <div fxLayout="row" fxFlexFill>
+        <mat-card-content fxFlex="70">
+            <div fxLayout="row" fxFlexFill>
 
-                <mat-card fxFlex="70" fxLayout="column">
+                <mat-card fxFlex="20" fxLayout="column">
+                </mat-card>
+
+
+                <mat-card fxFlex="30" fxLayout="column">
                     <mat-card-header fxLayoutAlign="center top">
                         <mat-card-title>Stocks</mat-card-title>
                     </mat-card-header>
@@ -16,7 +20,7 @@
                         <div fxLayout="column" fxFlex fxLayoutAlign="top left">
 
                             <mat-selection-list fxFlex class="scrollList"
-                                #stocks [(ngModel)]="stockSelected" (ngModelChange)="onNgModelChange($event)" [multiple]="false">
+                                                #stocks [(ngModel)]="stockSelected" (ngModelChange)="onNgModelChange($event)" [multiple]="false">
                                 <mat-list-option *ngFor="let stock of allStocks as stockDTOS"
                                                  (click)="onNgModelChange(stocks)" [value]="stock.name">
                                     {{stock.name}} = {{stock.currentPrice}}
@@ -29,13 +33,13 @@
                     </mat-card-content>
                 </mat-card>
 
-                <mat-card fxFlex="60" fxLayout="column">
+                <mat-card fxFlex="30" fxLayout="column">
                     <mat-card-header fxLayoutAlign="center top">
                         <mat-card-title>Selected Stock</mat-card-title>
                     </mat-card-header>
-                    <mat-card-content fxFlex fxLayoutAlign="center bottom">
+                    <mat-card-content fxFlex fxLayoutAlign="bottom center ">
 
-                        <div fxLayout="column" fxFlexFill fxLayoutAlign="center bottom">
+                        <div fxLayout="column" fxFlexFill fxLayoutAlign="bottom center">
 
                             <h1>{{updatedStock?.name}}</h1>
                             <h4>{{updatedStock?.description}}</h4>
@@ -63,6 +67,9 @@
                     </mat-card-content>
                 </mat-card>
 
+                <mat-card fxFlex="20" fxLayout="column">
+                </mat-card>
+
             </div>
 
         </mat-card-content>
@@ -70,3 +77,4 @@
     </mat-card>
 
 </div>
+

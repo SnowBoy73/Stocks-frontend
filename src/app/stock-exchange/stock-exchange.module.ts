@@ -21,12 +21,7 @@ import {MatListModule} from '@angular/material/list';
         ReactiveFormsModule,
         MatButtonModule,
         SharedModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        MatListModule,
-        FormsModule
+
     ]
 })
 export class StockExchangeModule { }
