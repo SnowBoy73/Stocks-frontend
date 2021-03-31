@@ -62,24 +62,40 @@
 
 
 <div *ngIf="!chatClient">
-  <h2 class="yellowText">
-    <span style="font-size:14px;color: forestgreen">..</span>
-    Welcome to SuperChat
-  </h2>
-  <p class="lightText">
-    <label>
-      <span style="font-size:14px;color: forestgreen">..</span>
-      Enter Nickname:>
-      <input type="text" [formControl]="nicknameFc">
-    </label>
-    <button (click)="sendNickname()">Send</button>
-  </p>
-  <div *ngIf="error$ | async as error" style="color: orange">
-    <h4>
-      <span style="font-size:14px;color: forestgreen">..</span>
-      Login Error - Nickname already in use
-    </h4>
+  <div fxLayout="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="20px">
+  <mat-card fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header fxLayoutAlign="center top">
+      <mat-card-title>Welcome To Crazy Chat</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxFlex fxLayoutAlign="bottom center ">
+
+      <div fxLayout="column" fxFlexFill fxLayoutAlign="bottom center">
+
+
+
+          <mat-form-field class="example-form-field">
+            <mat-label>Enter Nickname</mat-label>
+            <input matInput type="text" [formControl]="nicknameFc">
+          </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row"  fxLayoutAlign="center top" fxLayoutGap="10px">
+          <button (click)="sendNickname()">Send</button> </div>
+
+      <div *ngIf="error$ | async as error" style="color: orange">
+        <h4>
+          <span style="font-size:14px;color: forestgreen">..</span>
+          Login Error - Nickname already in use
+        </h4>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
   </div>
+
+
 </div>
 
 

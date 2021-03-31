@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs';
-// import {Stock} from './stock.model';
 import {StockUpdateDTO} from './stock-update.dto';
 import {StockDTO} from './stock.dto';
 
@@ -12,7 +11,7 @@ export class StockExchangeService {
 
     constructor(private socket: Socket) { }
 
-    updateStock(stockId: string, updatedStock: string): any { // NEW
+    updateStock(stockId: string, updatedStock: string): any {
         const stockUpdateDto: StockUpdateDTO = {
             id: stockId,
             updatedStockValue: updatedStock
@@ -21,25 +20,18 @@ export class StockExchangeService {
         this.socket.emit('update', stockUpdateDto);
     }
 
-    deleteStock(stockId: string, deletedStock: string): void  { // NEW
+    deleteStock(stockId: string, deletedStock: string): void  {
         this.socket.emit('delete', deletedStock);
     }
 
     listenForStockUpdates(): Observable<StockDTO> {
-        const ss = this.socket
-            .fromEvent<StockDTO>('update'); // ??  gets the current stock value (of selected company)
-        if (!ss) {
-            console.log('Ss = undefined');
-        } else {
-            console.log('Ss = DEFINED', ss);
-        }
-        return ss;
+        return this.socket
+            .fromEvent<StockDTO>('update');
     }
 
-    listenForNewStockValues(): Observable<StockDTO[]> {
-        const stks =  this.socket
-            .fromEvent<StockDTO[]>('newStockValues');
-        return stks;
+    listenForAllStocks(): Observable<StockDTO[]> {
+        return this.socket
+            .fromEvent<StockDTO[]>('getAllStocks');
     }
 
     connect(): void {
